@@ -1,0 +1,144 @@
+{
+    "outdoor-led-wall": {
+        "id": "outdoor-led-wall",
+        "name": "Outdoor LED Video Wall",
+        "description": "Premium outdoor LED wall with IP65 rating, perfect for festivals and large-scale events. Features ultra-high brightness and modular design.",
+        "features": [
+            "Ultra-high brightness: 6000 nits",
+            "IP65 weather protection",
+            "Modular design for custom sizes",
+            "4K resolution support",
+            "100,000 hours lifespan"
+        ],
+        "sizes": ["20x10", "30x15", "40x20", "50x25"],
+        "prices": {
+            "rent": {
+                "20x10": 1599,
+                "30x15": 3299,
+                "40x20": 5499,
+                "50x25": 8499
+            },
+            "purchase": {
+                "20x10": 52999,
+                "30x15": 94999,
+                "40x20": 159999,
+                "50x25": 209999
+            }
+        },
+        "images": [
+            "https://images.unsplash.com/photo-1492684223066-81342ee5ff30",
+            "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3",
+            "https://images.unsplash.com/photo-1533090161767-e6ffed986c88"
+        ],
+        "specs": {
+            "display": {
+                "Resolution": "4K (3840 x 2160)",
+                "Brightness": "6000 nits",
+                "Contrast Ratio": "6000:1",
+                "Viewing Angle": "160° H/V",
+                "Refresh Rate": "3840Hz"
+            },
+            "physical": {
+                "Panel Size": "500 x 1000 mm",
+                "Weight": "22 kg per panel",
+                "Protection Rating": "IP65",
+                "Operating Temperature": "-20°C to 50°C"
+            }
+        },
+        "category": "outdoor"
+    },
+    "indoor-led-wall": {
+        "id": "indoor-led-wall",
+        "name": "Indoor LED Video Wall",
+        "description": "High-resolution indoor LED wall with fine pixel pitch, ideal for conferences and indoor events.",
+        "features": [
+            "Fine pixel pitch: 1.9mm",
+            "High contrast ratio",
+            "Silent operation",
+            "HDR support",
+            "Easy front maintenance"
+        ],
+        "sizes": ["15x8", "24x12", "32x16", "40x20"],
+        "prices": {
+            "rent": {
+                "15x8": 1299,
+                "24x12": 2499,
+                "32x16": 3999,
+                "40x20": 5499
+            },
+            "purchase": {
+                "15x8": 45999,
+                "24x12": 79999,
+                "32x16": 129999,
+                "40x20": 169999
+            }
+        },
+        "images": [
+            "https://images.unsplash.com/photo-1461151304267-38535e780c79",
+            "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+        ],
+        "specs": {
+            "display": {
+                "Resolution": "4K (3840 x 2160)",
+                "Brightness": "1200 nits",
+                "Contrast Ratio": "8000:1",
+                "Viewing Angle": "170° H/V",
+                "Refresh Rate": "3840Hz"
+            },
+            "physical": {
+                "Panel Size": "400 x 600 mm",
+                "Weight": "15 kg per panel",
+                "Protection Rating": "IP30",
+                "Operating Temperature": "0°C to 40°C"
+            }
+        },
+        "category": "indoor"
+    },
+    "transparent-led": {
+        "id": "transparent-led",
+        "name": "Transparent LED Display",
+        "description": "Revolutionary transparent LED display for creative installations and retail environments.",
+        "features": [
+            "80% transparency",
+            "Seamless see-through effect",
+            "Custom shapes available",
+            "Low power consumption",
+            "Lightweight design"
+        ],
+        "sizes": ["10x8", "16x10", "24x12", "32x16"],
+        "prices": {
+            "rent": {
+                "10x8": 1899,
+                "16x10": 2999,
+                "24x12": 4499,
+                "32x16": 6999
+            },
+            "purchase": {
+                "10x8": 59999,
+                "16x10": 89999,
+                "24x12": 139999,
+                "32x16": 189999
+            }
+        },
+        "images": [
+            "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7",
+            "https://images.unsplash.com/photo-1542393545-10f5cde2c810"
+        ],
+        "specs": {
+            "display": {
+                "Transparency": "80%",
+                "Brightness": "4000 nits",
+                "Pixel Pitch": "3.9mm",
+                "Viewing Angle": "160° H/V",
+                "Refresh Rate": "3840Hz"
+            },
+            "physical": {
+                "Panel Size": "1000 x 500 mm",
+                "Weight": "12 kg per panel",
+                "Protection Rating": "IP43",
+                "Operating Temperature": "-10°C to 40°C"
+            }
+        },
+        "category": "specialty"
+    }
+} 

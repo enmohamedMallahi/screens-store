@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - BigScreen{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+    .swiper {
+        width: 100%;
+        height: 300px;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: #2563eb !important;
+    }
+    .gallery-thumbs {
+        height: 60px;
+        box-sizing: border-box;
+        padding: 8px 0;
+    }
+    .gallery-thumbs .swiper-slide img {
+        height: 52px;
+    }
+    .gallery-thumbs .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+        cursor: pointer;
+    }
+    .gallery-thumbs .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Product Section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-8 text-gray-600 text-sm">
+        <a href="/" class="hover:text-gray-900">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/products" class="hover:text-gray-900">Products</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">{{ product.name }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Product Images -->
+        <div>
+            <!-- Main Slider -->
+            <div class="swiper gallery-top mb-4 bg-white rounded-lg overflow-hidden">
+                <div class="swiper-wrapper">
+                    {% for image in product.images %}
+                    <div class="swiper-slide">
+                        <img src="{{ image }}" class="w-full h-[300px] object-cover" alt="{{ product.name }}">
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next text-white"></div>
+                <div class="swiper-button-prev text-white"></div>
+            </div>
+
+            <!-- Thumbs Slider -->
+            <div class="swiper gallery-thumbs">
+                <div class="swiper-wrapper">
+                    {% for image in product.images %}
+                    <div class="swiper-slide">
+                        <img src="{{ image }}" class="w-full h-[52px] object-cover rounded-lg" alt="Thumbnail">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ product.name }}</h1>
+            <div class="flex items-center mb-6">
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="ml-2 text-gray-600">(24 reviews)</span>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-2">Description</h2>
+                <p class="text-gray-600 mb-4">{{ product.description }}</p>
+                <ul class="space-y-2 text-gray-600">
+                    {% for feature in product.features %}
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        {{ feature }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div x-data="pricing">
+                <h2 class="text-xl font-semibold mb-4">Select Size & Pricing</h2>
+                
+                <!-- Size Selection -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Screen Size (Width x Height)</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        {% for size in product.sizes %}
+                        <button 
+                            @click="selectSize('{{ size }}')"
+                            :class="getButtonClass('{{ size }}')"
+                            class="border rounded-lg py-2 px-4 font-medium transition-colors">
+                            <span>{{ size }}ft</span>
+                            {% set width, height = size.split('x') %}
+                            <span class="block text-sm opacity-75">{{ width|int * height|int }} sq ft</span>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Purchase Options -->
+                <div class="space-y-4">
+                    <!-- Rent Option -->
+                    <div class="border rounded-lg p-4 relative"
+                         :class="getRentClass()">
+                        <input type="radio" 
+                               name="pricing" 
+                               value="rent" 
+                               x-model="option"
+                               class="absolute right-4 top-4">
+                        <div class="pr-8">
+                            <h3 class="font-semibold text-gray-900">Rent</h3>
+                            <div class="mt-2">
+                                <p class="text-3xl font-bold text-gray-900">
+                                    $<span x-text="getRentPrice()"></span>
+                                    <span class="text-lg">/day</span>
+                                </p>
+                                <p class="text-sm text-gray-600 mt-1">Minimum 2 days rental</p>
+                            </div>
+                            <ul class="mt-3 space-y-1 text-sm text-gray-600">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    Installation included
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    24/7 technical support
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Purchase Option -->
+                    <div class="border rounded-lg p-4 relative"
+                         :class="getPurchaseClass()">
+                        <input type="radio" 
+                               name="pricing" 
+                               value="purchase" 
+                               x-model="option"
+                               class="absolute right-4 top-4">
+                        <div class="pr-8">
+                            <h3 class="font-semibold text-gray-900">Purchase</h3>
+                            <div class="mt-2">
+                                <p class="text-3xl font-bold text-gray-900">
+                                    $<span x-text="getPurchasePrice()"></span>
+                                </p>
+                                <p class="text-sm text-gray-600 mt-1">One-time payment</p>
+                            </div>
+                            <ul class="mt-3 space-y-1 text-sm text-gray-600">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    3-year warranty
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    Free installation
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="space-y-4 mt-8">
+                    <button 
+                        class="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition-colors"
+                        @click="
+                            const orderDetails = {
+                                product: '{{ product.name }}',
+                                size: size,
+                                type: option,
+                                price: option === 'rent' ? rentPrices[size] : purchasePrices[size],
+                                date: new Date().toISOString()
+                            };
+                            console.log('New Order:', orderDetails);
+                            $el.textContent = option === 'rent' ? 'Request Rental Quote' : 'Request Purchase Quote';
+                        ">
+                        Request Quote
+                    </button>
+                    <button class="w-full bg-gray-900 text-white py-3 rounded-md font-medium hover:bg-gray-800 transition-colors">
+                        Schedule Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Specifications -->
+    <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Technical Specifications</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h3 class="font-semibold mb-4">Display</h3>
+                <dl class="space-y-2">
+                    {% for key, value in product.specs.display.items() %}
+                    <div class="flex justify-between">
+                        <dt class="text-gray-600">{{ key }}</dt>
+                        <dd class="font-medium">{{ value }}</dd>
+                    </div>
+                    {% endfor %}
+                </dl>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h3 class="font-semibold mb-4">Physical</h3>
+                <dl class="space-y-2">
+                    {% for key, value in product.specs.physical.items() %}
+                    <div class="flex justify-between">
+                        <dt class="text-gray-600">{{ key }}</dt>
+                        <dd class="font-medium">{{ value }}</dd>
+                    </div>
+                    {% endfor %}
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 8,
+        slidesPerView: 5,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+            640: {
+                slidesPerView: 7
+            }
+        }
+    });
+    
+    var galleryTop = new Swiper('.gallery-top', {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        thumbs: {
+            swiper: galleryThumbs
+        },
+        keyboard: {
+            enabled: true,
+        },
+        grabCursor: true,
+    });
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('pricing', () => ({
+            size: '{{ product.sizes[0] }}',
+            option: 'rent',
+            rentPrices: {{ product.prices.rent|tojson }},
+            purchasePrices: {{ product.prices.purchase|tojson }},
+            
+            selectSize(newSize) {
+                this.size = newSize;
+            },
+            
+            getButtonClass(buttonSize) {
+                return {
+                    'bg-blue-600 text-white border-blue-600': this.size === buttonSize,
+                    'bg-white text-gray-700 border-gray-300 hover:border-blue-500': this.size !== buttonSize
+                };
+            },
+            
+            getRentClass() {
+                return {
+                    'border-blue-500 bg-blue-50': this.option === 'rent',
+                    'border-gray-200': this.option !== 'rent'
+                };
+            },
+            
+            getPurchaseClass() {
+                return {
+                    'border-blue-500 bg-blue-50': this.option === 'purchase',
+                    'border-gray-200': this.option !== 'purchase'
+                };
+            },
+            
+            getRentPrice() {
+                return this.rentPrices[this.size].toLocaleString();
+            },
+            
+            getPurchasePrice() {
+                return this.purchasePrices[this.size].toLocaleString();
+            }
+        }));
+    });
+</script>
+{% endblock %} 

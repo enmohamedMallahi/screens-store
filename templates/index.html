@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-gray-900 h-[550px] overflow-hidden">
+    <!-- Background with fixed position -->
+    <div class="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-[2s] hover:scale-100" 
+         style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 mt-16">
+        <!-- Decorative element -->
+        <div class="absolute left-0 top-0 w-20 h-20 border-l-2 border-t-2 border-blue-500/30 -ml-4"></div>
+        
+        <div class="max-w-3xl">
+            <span class="text-blue-400 text-lg font-medium mb-4 block opacity-0 slide-in"
+                  style="animation-delay: 200ms">
+                Welcome to BigScreen
+            </span>
+            
+            <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl opacity-0 slide-in leading-tight"
+                style="animation-delay: 400ms;">
+                Premium Display 
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Solutions</span>
+            </h2>
+            
+            <p class="mt-2 text-sm text-gray-300 max-w-2xl opacity-0 slide-in leading-relaxed"
+               style="animation-delay: 600ms;">
+                Create unforgettable experiences with our premium screen solutions.
+            </p>
+            
+            <div class="mt-6 flex gap-4 opacity-0 slide-in" style="animation-delay: 800ms;">
+                <a href="/products" 
+                   class="inline-flex items-center px-8 py-3 text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300">
+                    View Products
+                    <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                
+                <a href="/contact" 
+                   class="hidden md:block px-8 py-3 text-base font-medium rounded-md text-gray-200 border border-gray-600 hover:border-gray-400 transition-all duration-300">
+                    Contact Us
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-16 grid grid-cols-3 gap-8 opacity-0 slide-in" style="animation-delay: 1000ms;">
+                <div>
+                    <div class="text-3xl font-bold text-white">500+</div>
+                    <div class="text-sm text-gray-400 mt-1">Displays Installed</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-white">24/7</div>
+                    <div class="text-sm text-gray-400 mt-1">Support Available</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-white">98%</div>
+                    <div class="text-sm text-gray-400 mt-1">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Section -->
+<div id="products" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Featured Screens</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        {% for product_id, product in products.items() %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <a href="{{ url_for('product', product_id=product.id) }}" class="block">
+                <img src="{{ product.images[0] }}" 
+                     alt="{{ product.name }}" 
+                     class="w-full h-40 object-cover">
+                <div class="p-2 lg:p-6">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-900 truncate">{{ product.name }}</h3>
+                    <p class="mt-0 text-sm md:text-base text-gray-600 truncate">{{ product.description }}</p>
+                    <div class="mt-2 w-full bg-blue-600 text-sm text-white py-2 rounded-md text-center transition-all duration-300 hover:bg-blue-700">
+                        Learn More
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- View All Products Button -->
+    <div class="mt-4">
+        <a href="/products" 
+           class="block w-full bg-gray-900 text-white text-center py-2 rounded-md text-base font-medium hover:bg-gray-800 transition-colors duration-300">
+            View All Products
+        </a>
+    </div>
+</div>
+
+<!-- Why Choose Us Section -->
+<div class="bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Why Choose Us</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Event-Ready Equipment -->
+            <div class="text-center transform transition-all duration-300 hover:scale-105">
+                <div class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto animate-float">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-semibold">Event-Ready Equipment</h3>
+                <p class="mt-2 text-gray-600 text-center">Weatherproof displays built for outdoor use</p>
+            </div>
+
+            <!-- 24/7 Support -->
+            <div class="text-center transform transition-all duration-300 hover:scale-105">
+                <div class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto animate-float" style="animation-delay: 0.2s;">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-semibold">24/7 Event Support</h3>
+                <p class="mt-2 text-gray-600 text-center">On-site technical support throughout your event</p>
+            </div>
+
+            <!-- Professional Setup -->
+            <div class="text-center transform transition-all duration-300 hover:scale-105">
+                <div class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto animate-float" style="animation-delay: 0.4s;">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-semibold">Professional Setup</h3>
+                <p class="mt-2 text-gray-600 text-center">Expert installation and configuration services</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

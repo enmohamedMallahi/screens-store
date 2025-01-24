@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BigScreen - Premium Display Solutions{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-lg fixed w-full z-50 transition-all duration-300" 
+         x-data="{ isScrolled: false }" 
+         @scroll.window="isScrolled = (window.pageYOffset > 20)"
+         :class="{ 'py-2': isScrolled, 'py-3': !isScrolled }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-14">
+                <div class="flex items-center">
+                    <a href="/" class="text-xl font-bold text-gray-800">BigScreen</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Buy</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Rent</a>
+                    <a href="/contact" class="text-gray-600 hover:text-gray-900">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/1234567890" 
+       class="fixed bottom-6 right-6 bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors z-50">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 mt-24">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400 text-center md:text-left">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">BigScreen</h3>
+                    <p>Premium display solutions for every need</p>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Products</a></li>
+                        <li><a href="#" class="hover:text-white">Rental Terms</a></li>
+                        <li><a href="#" class="hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li>Email: info@bigscreen.com</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Address: 123 Display Street</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>&copy; 2024 BigScreen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 
